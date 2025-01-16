@@ -32,7 +32,6 @@ export function handleError(error: unknown): String {
   return 'Something went wrong'
 }
 
-
 const axiosBaseQuery = (): BaseQueryFn<AxiosRequestConfig> => async (args) => {
   try {
     const result = await axiosInstance(args)
