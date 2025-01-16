@@ -13,3 +13,9 @@ export interface NewsSource {
   id: string | null;
   name: string;
 }
+
+export interface NewsData {
+  status: string;
+  totalResults: number;
+  articles: Array<News>
+}

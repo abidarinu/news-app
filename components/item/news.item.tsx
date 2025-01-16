@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import React from "react";
 import { News } from "@/models";
 
@@ -6,22 +6,26 @@ interface Props {
   item: News;
 }
 
+const width = Dimensions.get("screen").width;
+
 export default function ItemNews({ item }: Props) {
+  console.log(item)
   return (
     <View style={styles.container}>
-      <View>
+      {item.urlToImage && (
         <Image
           source={{
             uri: item.urlToImage,
           }}
           style={styles.image}
         />
-      </View>
+      )}
       <View style={styles.detail}>
         <Text style={styles.title} numberOfLines={3} ellipsizeMode="tail">
           {item.title}
         </Text>
-        <Text>{item.author}</Text>
+        <Text>Author: {item.author}</Text>
+        <Text style={styles.content}>{item.description}</Text>
       </View>
     </View>
   );
@@ -29,24 +33,28 @@ export default function ItemNews({ item }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     padding: 20,
     borderWidth: 1,
     borderColor: "#ddd",
-    flexDirection: "row",
+    flexDirection: "column",
     gap: 16,
   },
   image: {
-    width: 56,
-    height: 56,
+    width: width - 56,
+    height: 200,
   },
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    flexGrow: 1
+    flexGrow: 1,
   },
   detail: {
-    flexDirection: 'column',
-    flexGrow: 1
-  }
+    flexDirection: "column",
+    flex: 1,
+  },
+  content: {
+    fontSize: 16,
+    marginTop: 12,
+  },
 });

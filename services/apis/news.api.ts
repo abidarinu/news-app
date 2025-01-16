@@ -1,31 +1,31 @@
-import { News, Paginate } from '@/models'
-import api from '../api'
-import { API_KEY } from '@/constants/Key'
+import { API_KEY } from "@/constants/Key";
+import { NewsData } from "@/models";
+import api from "../api";
 
 const newsApi = api.injectEndpoints({
   endpoints: (build) => ({
     fetchNewsList: build.query<
-      Paginate<News>,
+      NewsData,
       {
-        query?: string
+        query?: string;
       }
     >({
       query: ({ query = null }) => ({
-        url: 'everything',
+        url: "everything",
         params: {
           q: query,
-          apiKey: API_KEY
+          apiKey: API_KEY,
         },
       }),
-      providesTags: ['News'],
+      providesTags: ["News"],
       serializeQueryArgs: ({ endpointName }) => {
-        return endpointName
+        return endpointName;
       },
       forceRefetch({ previousArg, currentArg }) {
-        return currentArg !== previousArg
+        return currentArg !== previousArg;
       },
     }),
   }),
-})
+});
 
-export const { useFetchNewsListQuery } = newsApi
+export const { useFetchNewsListQuery } = newsApi;
